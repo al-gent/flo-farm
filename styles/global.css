@@ -1,0 +1,58 @@
+html {
+  background-color: #c2d7ee;
+  font-family: 'Roboto', sans-serif;
+  src: url(https://fonts.googleapis.com) url(https://fonts.gstatic.com)
+    url(https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap);
+  font-weight: 300;
+  font-size: 16px;
+}
+
+h1 {
+  text-align: center;
+}
+h2 {
+  text-align: center;
+}
+
+button {
+  font-size: 16px;
+}
+
+input {
+  text-align: center;
+}
+
+th {
+  text-align: left;
+}
+tr {
+  border: 1px solid #080606;
+}
+input {
+  font-size: 16px;
+}
+
+wsb:hover {
+  background-color: #0e5188;
+}
+
+td {
+  word-wrap: break-word;
+  max-width: 8rem; /* Adjust as needed */
+  padding-top: 0rem;
+}
+
+form {
+  text-align: center;
+  padding: 1rem;
+}
+
+form > * {
+  display: block;
+  padding: 0.4rem;
+}
+
+textarea {
+  font-size: 16px;
+  font-family: 'Roboto', sans-serif;
+}
