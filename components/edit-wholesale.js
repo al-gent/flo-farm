@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/editWholesale.module.css';
 import EditRow from './edit-wholesale-row';
 import Link from 'next/link';
 
@@ -49,38 +48,51 @@ function ProductRow({ product, updateProduct, updateQuantity, deleteProduct }) {
         invalidQuant={invalidQuant}
       />
       <tr>
-        <td>
-          <button
-            onClick={() => {
-              if (isNaN(quantity) || quantity < 0 || isNaN(price) || price < 0)
-                setInvalidQuant(true);
-              if (unit2 && !unitRatio) setNeedUnitRatio(true);
-              else {
-                setInvalidQuant(false);
-                setNeedUnitRatio(false);
-                updateProduct(
-                  product,
-                  productName,
-                  quantity,
-                  unit,
-                  unit2,
-                  price,
-                  price2,
-                  unitRatio,
-                );
-                setEdit(false);
-              }
-            }}
-          >
-            Save
-          </button>
-        </td>
-        <td> {needUnitRatio && <>Please enter a unit ratio</>}</td>
-        <td>
-          <button onClick={() => deleteProduct(product.id)}>Delete</button>
-        </td>
-        <td>
-          <button onClick={() => setEdit(false)}>Cancel</button>
+        <td colSpan="4">
+          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem' }}>
+            <button
+              className="btn btn-primary btn-sm"
+              onClick={() => {
+                if (isNaN(quantity) || quantity < 0 || isNaN(price) || price < 0)
+                  setInvalidQuant(true);
+                if (unit2 && !unitRatio) setNeedUnitRatio(true);
+                else {
+                  setInvalidQuant(false);
+                  setNeedUnitRatio(false);
+                  updateProduct(
+                    product,
+                    productName,
+                    quantity,
+                    unit,
+                    unit2,
+                    price,
+                    price2,
+                    unitRatio,
+                  );
+                  setEdit(false);
+                }
+              }}
+            >
+              Save
+            </button>
+            <button 
+              className="btn btn-secondary btn-sm"
+              onClick={() => deleteProduct(product.id)}
+            >
+              Delete
+            </button>
+            <button 
+              className="btn btn-ghost btn-sm"
+              onClick={() => setEdit(false)}
+            >
+              Cancel
+            </button>
+            {needUnitRatio && (
+              <span style={{ color: 'var(--color-error)', alignSelf: 'center' }}>
+                Please enter a unit ratio
+              </span>
+            )}
+          </div>
         </td>
       </tr>
     </>
@@ -88,25 +100,26 @@ function ProductRow({ product, updateProduct, updateQuantity, deleteProduct }) {
     <>
       <tr>
         <td>
-          <div
+          <button
+            className="text-primary"
             onClick={() => setEdit(true)}
             style={{
+              background: 'none',
+              border: 'none',
               cursor: 'pointer',
-              color: 'blue',
               textDecoration: 'underline',
-              ':hover': {
-                color: '#0366d6',
-                textDecoration: 'none',
-              },
+              padding: 0,
+              font: 'inherit',
             }}
           >
             {productName}
-          </div>
+          </button>
         </td>
         <td>
           <input
-            size={4}
-            type="text"
+            className="form-input"
+            style={{ width: '80px' }}
+            type="number"
             value={quantity == 0 ? '' : quantity}
             placeholder={quantity}
             onChange={(e) => {
@@ -129,13 +142,15 @@ function ProductRow({ product, updateProduct, updateQuantity, deleteProduct }) {
           {product.price.length > 1 ? '$' + price2 + '/' + perUnit(unit2) : ''}
         </td>
       </tr>
-      <>
-        {invalidQuant && (
+      {invalidQuant && (
+        <tr>
           <td colSpan="4" style={{ textAlign: 'center' }}>
-            This isn't a valid quantity
+            <span style={{ color: 'var(--color-error)' }}>
+              This isn't a valid quantity
+            </span>
           </td>
-        )}
-      </>
+        </tr>
+      )}
     </>
   );
 }
@@ -166,6 +181,7 @@ function ProductTable({
         deleteProduct={deleteProduct}
       />
     ));
+
   const inactiveListings = products
     .filter((product) => product.quantity == 0)
     .map((product) => (
@@ -177,21 +193,22 @@ function ProductTable({
         deleteProduct={deleteProduct}
       />
     ));
+
   return (
-    <table>
+    <table className="table">
       <tbody>
         {currentListings.length > 0 && (
           <>
             <tr>
-              <td colSpan="4" style={{ textAlign: 'center' }}>
-                <h2>Current Listings</h2>
+              <td colSpan="4" className="text-center" style={{ background: 'var(--color-bg-secondary)', padding: '1rem' }}>
+                <h3 style={{ margin: 0 }}>Current Listings</h3>
               </td>
             </tr>
             <tr>
               <th>Name</th>
               <th>Quantity</th>
-              <th style={{ width: '4rem' }}>Price / Unit</th>
-              <th style={{ width: '4rem' }}>2nd Price / Unit</th>
+              <th>Price / Unit</th>
+              <th>2nd Price / Unit</th>
             </tr>
             {currentListings}
           </>
@@ -199,19 +216,24 @@ function ProductTable({
         {inactiveListings.length > 0 && (
           <>
             <tr>
-              <td colSpan="4" style={{ textAlign: 'center' }}>
-                <h3>Inactive Listings</h3>
+              <td colSpan="4" className="text-center" style={{ background: 'var(--color-bg-secondary)', padding: '1rem', borderTop: '2px solid var(--color-border-light)' }}>
+                <h3 style={{ margin: 0 }}>Inactive Listings</h3>
               </td>
             </tr>
             <tr>
               <th>Name</th>
               <th>Quantity</th>
-              <th style={{ width: '4rem' }}>Price / Unit</th>
-              <th style={{ width: '4rem' }}>2nd Price / Unit</th>
+              <th>Price / Unit</th>
+              <th>2nd Price / Unit</th>
             </tr>
             {inactiveListings}
           </>
         )}
+        <tr>
+          <td colSpan="4" style={{ background: 'var(--color-bg-secondary)', padding: '1rem', borderTop: '2px solid var(--color-border-light)' }}>
+            <h3 style={{ margin: '0 0 1rem 0' }}>Add New Product</h3>
+          </td>
+        </tr>
         <EditRow
           productName={productName}
           setProductName={setProductName}
@@ -230,6 +252,7 @@ function ProductTable({
         <tr>
           <td colSpan="4">
             <button
+              className="btn btn-primary"
               onClick={() => {
                 if (
                   isNaN(quantity) ||
@@ -262,6 +285,7 @@ function ProductTable({
 export default function EditWholesale({ client, isLoading, setIsLoading }) {
   const [farmersNote, setFarmersNote] = useState('');
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     setIsLoading(true);
     fetch(`/api/data?client=${encodeURIComponent(client)}`)
@@ -316,7 +340,6 @@ export default function EditWholesale({ client, isLoading, setIsLoading }) {
     let priceArray = [];
     unit2 ? (unitArray = [unit, unit2]) : (unitArray = [unit]);
     price2 ? (priceArray = [price, price2]) : (priceArray = [price]);
-
     setProducts([
       ...products,
       {
@@ -326,7 +349,6 @@ export default function EditWholesale({ client, isLoading, setIsLoading }) {
         price: priceArray,
       },
     ]);
-
     fetch(`/api/add-product`, {
       method: 'POST',
       headers: {
@@ -438,31 +460,47 @@ export default function EditWholesale({ client, isLoading, setIsLoading }) {
   }
 
   return (
-    <div className={styles.editWholesale}>
-      <h1>Wholesale Products</h1>
-      {isLoading ? <p>Loading...</p> : null}
-      <textarea
-        placeholder={
-          farmersNote
-            ? `Farmer's Note: ${farmersNote}`
-            : `Farmer's Note: enter a note here. Buyers will see this note on your order form.`
-        }
-        onChange={(e) => {
-          e.preventDefault();
-          const newNote = e.target.value;
-          setFarmersNote(newNote);
-        }}
-      ></textarea>
-      <div>
-        <button onClick={() => addNote(farmersNote)}>Post New Note</button>
+    <div className="container">
+      <div className="card">
+        <h1>Wholesale Products</h1>
+        {isLoading ? <div className="loading" style={{ margin: '2rem auto' }}></div> : null}
+        
+        <div className="form-group">
+          <label className="form-label">Farmer's Note (visible to buyers)</label>
+          <textarea
+            className="form-textarea"
+            placeholder={
+              farmersNote
+                ? farmersNote
+                : `Enter a note here. Buyers will see this note on your order form.`
+            }
+            value={farmersNote}
+            rows="4"
+            onChange={(e) => {
+              e.preventDefault();
+              const newNote = e.target.value;
+              setFarmersNote(newNote);
+            }}
+          />
+          <button 
+            className="btn btn-primary btn-sm" 
+            onClick={() => addNote(farmersNote)}
+            style={{ marginTop: '0.5rem' }}
+          >
+            Post New Note
+          </button>
+        </div>
       </div>
-      <ProductTable
-        products={products}
-        updateProduct={updateProduct}
-        updateQuantity={updateQuantity}
-        addProduct={addProduct}
-        deleteProduct={deleteProduct}
-      />
+      
+      <div style={{ marginTop: '2rem' }}>
+        <ProductTable
+          products={products}
+          updateProduct={updateProduct}
+          updateQuantity={updateQuantity}
+          addProduct={addProduct}
+          deleteProduct={deleteProduct}
+        />
+      </div>
     </div>
   );
 }

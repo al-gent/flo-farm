@@ -25,8 +25,8 @@ export default function CartTable({
       return (
         total +
         product.cart *
-          productMultiplier(product) *
-          product.price[product.unitSelected]
+        productMultiplier(product) *
+        product.price[product.unitSelected]
       );
     }, 0)
     .toFixed(2);
@@ -40,60 +40,77 @@ export default function CartTable({
         removeFromCart={removeFromCart}
       />
     ));
+
   return (
-    <div>
-      <div>
-        <table>
-          <tbody>
+    <div className="container-sm">
+      <div style={{ overflowX: 'auto', marginBottom: '2rem' }}>
+        <table className="table">
+          <thead>
             <tr>
               <th>Name</th>
               <th>Quantity Selected</th>
               <th>Price</th>
               <th>Total Price</th>
             </tr>
-            <>{rows}</>
+          </thead>
+          <tbody>
+            {rows}
           </tbody>
         </table>
       </div>
-      <hr></hr>
-      <p style={{ fontWeight: 'bold' }}>Checkout total: ${total}</p>
+
+      <div className="card" style={{ marginBottom: '2rem', textAlign: 'right' }}>
+        <p style={{ fontSize: '1.125rem', margin: 0 }}>
+          Checkout total: <span className="text-primary font-bold" style={{ fontSize: '1.5rem', marginLeft: '0.5rem' }}>${total}</span>
+        </p>
+      </div>
+
       {setCustname && (
-        <div>
-          <div>
+        <form className="card">
+          <div className="form-group">
             <input
               type="text"
+              className="form-input"
               value={custname}
               onChange={(e) => setCustname(e.target.value)}
               required
               placeholder="Name / Organization"
             />
           </div>
-          <div>
+          
+          <div className="form-group">
             <input
-              type="text"
+              type="email"
+              className="form-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="Email"
             />
           </div>
-          <div>
-            <input
-              type="textarea"
+          
+          <div className="form-group">
+            <textarea
+              className="form-textarea"
               value={notes}
-              placeholder="Notes"
+              placeholder="Notes (optional)"
               onChange={(e) => setNotes(e.target.value)}
+              rows="3"
             />
           </div>
+          
           <button
+            className="btn btn-primary btn-lg"
             onClick={(e) => {
               e.preventDefault();
               onSubmit(e);
             }}
+            type="submit"
+            style={{ width: '100%' }}
           >
             Submit Order
-          </button>{' '}
-        </div>
+          </button>
+        </form>
       )}
     </div>
   );

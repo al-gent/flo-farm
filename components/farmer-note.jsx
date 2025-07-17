@@ -1,26 +1,29 @@
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
-import styles from '../styles/wholesale.module.css';
 
 const FarmerNote = ({ farmersNote }) => {
   // Process and sanitize the markdown
   const processedNote = farmersNote ? DOMPurify.sanitize(marked(farmersNote)) : '';
-
+  
   return (
     <div>
       {farmersNote && (
-        <>
-          <p className={styles.centerText}>
+        <div className="card" style={{ marginBottom: '2rem', textAlign: 'center' }}>
+          <p className="text-secondary font-medium" style={{ marginBottom: '1rem' }}>
             <em>Farmer's Note:</em>
           </p>
           <div
-            className={styles.farmersNote}
+            style={{ 
+              fontSize: 'var(--font-size-lg)', 
+              lineHeight: 'var(--line-height-relaxed)',
+              color: 'var(--color-text-primary)'
+            }}
             dangerouslySetInnerHTML={{ __html: processedNote }}
           />
-        </>
+        </div>
       )}
     </div>
   );
 };
 
-export default FarmerNote;
+export default FarmerNote

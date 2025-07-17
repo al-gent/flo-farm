@@ -22,7 +22,8 @@ export default function EditRow({
       <tr>
         <td>
           <input
-            size="10"
+            className="form-input"
+            style={{ width: '150px' }}
             type="text"
             value={productName}
             placeholder="Product Name"
@@ -33,8 +34,9 @@ export default function EditRow({
         </td>
         <td>
           <input
-            size="4"
-            type="text"
+            className="form-input"
+            style={{ width: '80px' }}
+            type="number"
             value={quantity}
             placeholder="Quant"
             onChange={(e) => {
@@ -43,60 +45,78 @@ export default function EditRow({
           />
         </td>
         <td>
-          <input
-            size="4"
-            type="text"
-            placeholder="price"
-            value={price}
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
-          />
-          <input
-            size="4"
-            type="text"
-            placeholder="unit"
-            value={unit}
-            onChange={(e) => {
-              setUnit(e.target.value);
-            }}
-          ></input>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <input
+              className="form-input"
+              style={{ width: '80px' }}
+              type="number"
+              step="0.01"
+              placeholder="price"
+              value={price}
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+            />
+            <input
+              className="form-input"
+              style={{ width: '80px' }}
+              type="text"
+              placeholder="unit"
+              value={unit}
+              onChange={(e) => {
+                setUnit(e.target.value);
+              }}
+            />
+          </div>
         </td>
         <td>
-          <input
-            size="4"
-            type="text"
-            placeholder="price"
-            value={price2}
-            onChange={(e) => {
-              setPrice2(e.target.value);
-            }}
-          ></input>
-          <input
-            size="4"
-            type="text"
-            placeholder="unit"
-            value={unit2}
-            onChange={(e) => {
-              setUnit2(e.target.value);
-            }}
-          ></input>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <input
+              className="form-input"
+              style={{ width: '80px' }}
+              type="number"
+              step="0.01"
+              placeholder="price"
+              value={price2}
+              onChange={(e) => {
+                setPrice2(e.target.value);
+              }}
+            />
+            <input
+              className="form-input"
+              style={{ width: '80px' }}
+              type="text"
+              placeholder="unit"
+              value={unit2}
+              onChange={(e) => {
+                setUnit2(e.target.value);
+              }}
+            />
+          </div>
         </td>
       </tr>
-      {invalidQuant && <p>This quantity is invalid</p>}
+      {invalidQuant && (
+        <tr>
+          <td colSpan={4}>
+            <p style={{ color: 'var(--color-error)', margin: '0.5rem 0' }}>
+              This quantity is invalid
+            </p>
+          </td>
+        </tr>
+      )}
       {unit2 && (
         <tr>
           <td colSpan={2}></td>
           <td colSpan={2}>
             <input
-              style={{ width: '100%' }}
+              className="form-input"
               type="text"
               placeholder="unit ratio"
               value={unitRatio}
               onChange={(e) => {
                 setUnitRatio(e.target.value);
               }}
-            ></input>
+            />
           </td>
         </tr>
       )}

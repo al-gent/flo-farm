@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from '/styles/index.module.css';
 
 export default function Contact() {
   const [name, setName] = useState('');
@@ -25,36 +24,46 @@ export default function Contact() {
   };
 
   return (
-    <div>
-      <form className={styles.storyCard} onSubmit={handleSubmit}>
-        <label>
-          Name:
+    <div className="container-sm section">
+      <form className="card" onSubmit={handleSubmit}>
+        <h2 className="text-center" style={{ marginBottom: '2rem' }}>Contact Us</h2>
+        
+        <div className="form-group">
+          <label className="form-label">Name:</label>
           <input
             type="text"
+            className="form-input"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          {errors.name && <p>{errors.name}</p>}
-        </label>
-        <label>
-          Email:
+          {errors.name && <p style={{ color: 'var(--color-error)', fontSize: '0.875rem', marginTop: '0.25rem' }}>{errors.name}</p>}
+        </div>
+        
+        <div className="form-group">
+          <label className="form-label">Email:</label>
           <input
             type="email"
+            className="form-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {errors.email && <p>{errors.email}</p>}
-        </label>
-        <label>
-          Message:
+          {errors.email && <p style={{ color: 'var(--color-error)', fontSize: '0.875rem', marginTop: '0.25rem' }}>{errors.email}</p>}
+        </div>
+        
+        <div className="form-group">
+          <label className="form-label">Message:</label>
           <textarea
+            className="form-textarea"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            rows="5"
           />
-          {errors.message && <p>{errors.message}</p>}
-        </label>
-        <input type="submit" value="Submit" />
+          {errors.message && <p style={{ color: 'var(--color-error)', fontSize: '0.875rem', marginTop: '0.25rem' }}>{errors.message}</p>}
+        </div>
+        
+        <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+          Submit
+        </button>
       </form>
     </div>
-  );
-}
+  );}

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from '/styles/login.module.css';
 import { useCookies } from 'react-cookie';
 
 export default function Login({
@@ -47,49 +46,77 @@ export default function Login({
   };
 
   return (
-    <div className={styles.loginContainer}>
-      {isCred == false && (
-        <div>
-          <h2> Farmcode / pin incorrect.</h2>
-          <h2>
-            Please try again or{' '}
-            <a style={{ color: 'blue' }} href="/signup">
-              signup
-            </a>
-          </h2>
-        </div>
-      )}
-
-      {isCred ? (
-        <button onClick={logout}>logout</button>
-      ) : (
-        <form onSubmit={checkCredential}>
-          <h4>Farmcode:</h4>
-          <input
-            type="text"
-            value={farmCode}
-            onChange={(e) => setFarmCode(e.target.value)}
-          />
-          <h4>PIN:</h4>
-          <input
-            size="5"
-            type="password"
-            value={pin}
-            onChange={(e) => setPin(e.target.value)}
-          />
-          <div>
-            <p htmlFor="staySignedIn">Stay signed in</p>
-            <input
-              type="checkbox"
-              id="staySignedIn"
-              name="staySignedIn"
-              checked={staySignedIn}
-              onChange={(e) => setStaySignedIn(e.target.checked)}
-            />
+    <div className="container-sm" style={{ marginTop: 'var(--spacing-3xl)' }}>
+      <div className="card text-center" style={{ maxWidth: '400px', margin: '0 auto' }}>
+        {isCred === false && (
+          <div style={{ marginBottom: 'var(--spacing-lg)' }}>
+            <h2 style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-md)' }}>
+              Farmcode / pin incorrect.
+            </h2>
+            <p className="text-secondary">
+              Please try again or{' '}
+              <a href="/signup" className="text-primary font-semibold">
+                signup
+              </a>
+            </p>
           </div>
-          <input type="submit" value="Login" />
-        </form>
-      )}
+        )}
+        
+        {isCred ? (
+          <button className="btn btn-secondary" onClick={logout}>
+            Logout
+          </button>
+        ) : (
+          <form onSubmit={checkCredential}>
+            <h2 style={{ marginBottom: 'var(--spacing-xl)' }}>Farmer Login</h2>
+            
+            <div className="form-group">
+              <label className="form-label">Farmcode:</label>
+              <input
+                className="form-input"
+                type="text"
+                value={farmCode}
+                onChange={(e) => setFarmCode(e.target.value)}
+                required
+              />
+            </div>
+            
+            <div className="form-group">
+              <label className="form-label">PIN:</label>
+              <input
+                className="form-input"
+                type="password"
+                value={pin}
+                onChange={(e) => setPin(e.target.value)}
+                required
+              />
+            </div>
+            
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 'var(--spacing-sm)',
+              marginBottom: 'var(--spacing-lg)'
+            }}>
+              <input
+                type="checkbox"
+                id="staySignedIn"
+                name="staySignedIn"
+                checked={staySignedIn}
+                onChange={(e) => setStaySignedIn(e.target.checked)}
+                style={{ width: 'auto', margin: 0 }}
+              />
+              <label htmlFor="staySignedIn" style={{ margin: 0 }}>
+                Stay signed in
+              </label>
+            </div>
+            
+            <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
+              Login
+            </button>
+          </form>
+        )}
+      </div>
     </div>
   );
 }

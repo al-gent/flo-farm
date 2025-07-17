@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from '/styles/login.module.css';
 import { useCookies } from 'react-cookie';
 import Dash from '../components/dash';
 import DashboardHelp from '../components/dashboard-help';
@@ -61,7 +60,6 @@ export default function SignUp() {
         }
         return response.json();
       })
-      //then redirect??? then what?
       .then((data) => {
         console.log('data from .then', data);
         setFarmerAdded(data.farmerAdded);
@@ -82,14 +80,16 @@ export default function SignUp() {
   };
 
   return (
-    <div>
+    <div className="container" style={{ marginTop: 'var(--spacing-2xl)' }}>
       {farmerAdded ? (
-        <div className={styles.signupDashContainer}>
-          <h3> Nice work, {firstName}. Your account has been created. </h3>
-          <p>
-            The first thing you should do is click 'Edit Wholesale' and add the
-            produce you have available.
-          </p>
+        <div>
+          <div className="card text-center" style={{ marginBottom: 'var(--spacing-2xl)' }}>
+            <h3 className="text-primary">Nice work, {firstName}! Your account has been created.</h3>
+            <p className="text-secondary" style={{ fontSize: 'var(--font-size-lg)' }}>
+              The first thing you should do is click 'Edit Wholesale' and add the
+              produce you have available.
+            </p>
+          </div>
           <Dash
             client={farmCode}
             isLoading={isLoading}
@@ -98,99 +98,118 @@ export default function SignUp() {
           <DashboardHelp />
         </div>
       ) : (
-        <div className={styles.signupContainer}>
-          <h1>Farmer Sign Up</h1>
+        <div className="card" style={{ maxWidth: '600px', margin: '0 auto' }}>
+          <h1 className="text-center" style={{ marginBottom: 'var(--spacing-2xl)' }}>
+            Farmer Sign Up
+          </h1>
           <form onSubmit={addFarmer}>
-            <label>
-              Farm Name
+            <div className="form-group">
+              <label className="form-label">Farm Name</label>
               <input
-                size="29"
+                className="form-input"
                 type="text"
                 value={farmName}
                 onChange={(e) => setFarmName(e.target.value)}
                 required
               />
-            </label>
-            <label>
-              Farmcode
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Farmcode</label>
               <input
-                size="10"
+                className="form-input"
                 onBlur={isFarmCodeTaken}
                 type="text"
                 value={farmCode}
                 onChange={(e) => setFarmCode(e.target.value.toLowerCase())}
                 required
+                style={{ textTransform: 'lowercase' }}
               />
-            </label>
-            <small>
-              Your farmcode should be a short sequence of letters. Buyers will
-              access your produce list by entering the farmcode after the
-              website name. eg: adamlgent.com/yourfarmcode
-            </small>
-            <small>
-              For example, if your farm name is Greenbush Growing Cooperative,
-              your farmcode could be ggc or greenbush
-            </small>
-            {farmCodeTaken && (
-              <p>
-                This farmcode is already taken! Please select a different one
-              </p>
-            )}
-            <label>
-              PIN
+              <small className="text-secondary" style={{ display: 'block', marginTop: '0.5rem' }}>
+                Your farmcode should be a short sequence of letters. Buyers will
+                access your produce list by entering the farmcode after the
+                website name. eg: flo.farm/yourfarmcode
+              </small>
+              <small className="text-secondary" style={{ display: 'block', marginTop: '0.25rem' }}>
+                For example, if your farm name is Greenbush Growing Cooperative,
+                your farmcode could be ggc or greenbush
+              </small>
+              {farmCodeTaken && (
+                <p style={{ color: 'var(--color-error)', marginTop: '0.5rem' }}>
+                  This farmcode is already taken! Please select a different one
+                </p>
+              )}
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">PIN</label>
               <input
-                size="10"
+                className="form-input"
                 type="text"
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
                 required
+                maxLength="6"
               />
-            </label>
-            <small>
-              Your pin should be a short sequence of numbers. You'll use this to
-              view your orders and update what produce is available.
-            </small>
-            <label>
-              First name
+              <small className="text-secondary" style={{ display: 'block', marginTop: '0.5rem' }}>
+                Your pin should be a short sequence of numbers. You'll use this to
+                view your orders and update what produce is available.
+              </small>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">First name</label>
               <input
-                size="10"
+                className="form-input"
                 type="text"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
               />
-            </label>
-            <label>
-              Email
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Email</label>
               <input
-                type="text"
+                className="form-input"
+                type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-            </label>
-            <small>Notifications go here when orders are placed.</small>
-            <label>
-              Phone Number
+              <small className="text-secondary" style={{ display: 'block', marginTop: '0.5rem' }}>
+                Notifications go here when orders are placed.
+              </small>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Phone Number</label>
               <input
-                size="10"
+                className="form-input"
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
               />
-            </label>
-            <label>
-              Your favorite vegetable
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Your favorite vegetable</label>
               <input
-                size="10"
+                className="form-input"
                 type="text"
                 value={favVeg}
                 onChange={(e) => setFavVeg(e.target.value)}
               />
-            </label>
+            </div>
+
+            <button 
+              type="submit" 
+              className="btn btn-primary btn-lg" 
+              style={{ width: '100%', marginTop: 'var(--spacing-lg)' }}
+            >
+              Sign Up
+            </button>
           </form>
-          <button onClick={addFarmer}>Sign Up</button>
-          {/* <input type="submit" value="Sign Up" /> */}
         </div>
       )}
     </div>

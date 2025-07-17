@@ -1,42 +1,71 @@
-import styles from '../styles/wholesale.module.css';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import utilStyles from '../styles/utils.module.css';
 
 export default function Layout({ children, isLoading, props, siteTitle }) {
   return (
-    <div className={styles.centerText}>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <header className={styles.header}>
-        <div className={styles.nav}>{props}</div>
-        <Image
-          className={styles.logo}
-          priority
-          src="/images/Untitled.png"
-          height={1500}
-          width={1159}
-          alt="Logo"
-        />
+      
+      <header style={{ 
+        background: 'var(--color-bg-secondary)', 
+        padding: 'var(--spacing-lg) 0',
+        borderBottom: '1px solid var(--color-border-light)'
+      }}>
+        <div className="container">
+          <nav style={{ marginBottom: 'var(--spacing-md)' }}>
+            {props}
+          </nav>
+          <div className="text-center">
+            <Image
+              priority
+              src="/images/Untitled.png"
+              height={150}
+              width={116}
+              alt="Logo"
+              style={{ height: 'auto', maxWidth: '150px' }}
+            />
+          </div>
+        </div>
       </header>
-      <main>{children}</main>
-      <footer className={styles.header}>
-        <Image
-          className={isLoading ? styles.loading : styles.logo}
-          priority
-          src="/images/cabbagelogotransparent.png"
-          height={2500}
-          width={2323}
-          alt="cabagelogotransparent"
-        />
+      
+      <main style={{ flex: 1, padding: 'var(--spacing-2xl) 0' }}>
+        <div className="container">
+          {children}
+        </div>
+      </main>
+      
+      <footer style={{ 
+        background: 'var(--color-bg-secondary)', 
+        padding: 'var(--spacing-xl) 0',
+        borderTop: '1px solid var(--color-border-light)',
+        textAlign: 'center'
+      }}>
+        <div className="container">
+          <div style={{ marginBottom: 'var(--spacing-md)' }}>
+            <Image
+              className={isLoading ? "loading" : ""}
+              priority
+              src="/images/cabbagelogotransparent.png"
+              height={80}
+              width={74}
+              alt="cabbage logo"
+              style={{ 
+                height: 'auto', 
+                maxWidth: '80px',
+                display: isLoading ? 'none' : 'inline-block'
+              }}
+            />
+            {isLoading && <div className="loading" style={{ margin: '0 auto' }}></div>}
+          </div>
+          <p className="text-secondary">
+            Website made with love by{' '}
+            <a href="https://github.com/al-gent" className="text-primary">Adam</a>
+          </p>
+        </div>
       </footer>
-      <p className={styles.footerText}>
-        {' '}
-        Website made with love by{' '}
-        <Link href="https://github.com/al-gent">Adam</Link>
-      </p>
     </div>
   );
 }
