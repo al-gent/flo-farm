@@ -1,0 +1,231 @@
+/* Dashboard Container */
+.dashboardContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-xl);
+  }
+  
+  /* Dashboard Header */
+  .dashboardHeader {
+    text-align: center;
+    margin-bottom: var(--spacing-3xl);
+  }
+  
+  .farmName {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .dashboardTitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-normal);
+  }
+  
+  /* Button Grid */
+  .buttonGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-3xl);
+  }
+  
+  /* Dashboard Cards */
+  .dashboardCard {
+    background: white;
+    border: 2px solid transparent;
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .dashboardCard:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* Card Variants */
+  .newOrders {
+    background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+    border-color: #fc8181;
+  }
+  
+  .newOrders:hover {
+    border-color: #f56565;
+    box-shadow: 0 10px 25px rgba(245, 101, 101, 0.2);
+  }
+  
+  .editWholesale {
+    background: linear-gradient(135deg, #f0fdf4 0%, #bbf7d0 100%);
+    border-color: #48bb78;
+  }
+  
+  .editWholesale:hover {
+    border-color: #38a169;
+    box-shadow: 0 10px 25px rgba(72, 187, 120, 0.2);
+  }
+  
+  .completedOrders {
+    background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+    border-color: #4fd1c5;
+  }
+  
+  .completedOrders:hover {
+    border-color: #38b2ac;
+    box-shadow: 0 10px 25px rgba(56, 178, 172, 0.2);
+  }
+  
+  .todaysHarvest {
+    background: linear-gradient(135deg, #fefcbf 0%, #faf089 100%);
+    border-color: #f6e05e;
+  }
+  
+  .todaysHarvest:hover {
+    border-color: #ecc94b;
+    box-shadow: 0 10px 25px rgba(236, 201, 75, 0.2);
+  }
+  
+  .updateBuyers {
+    background: linear-gradient(135deg, #e9d8fd 0%, #d6bcfa 100%);
+    border-color: #b794f4;
+  }
+  
+  .updateBuyers:hover {
+    border-color: #9f7aea;
+    box-shadow: 0 10px 25px rgba(159, 122, 234, 0.2);
+  }
+  
+  /* Active state */
+  .dashboardCard.active {
+    transform: scale(0.98);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Card Content */
+  .cardIcon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .cardTitle {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .cardDescription {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+  
+  .orderCount {
+    display: inline-block;
+    background: var(--color-error);
+    color: white;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-left: var(--spacing-sm);
+  }
+  
+  /* Bottom Actions */
+  .bottomActions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-3xl);
+  }
+  
+  .helpButton,
+  .logoutButton {
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: 2px solid var(--color-border-light);
+    background: white;
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+    cursor: pointer;
+  }
+  
+  .helpButton:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+  
+  .logoutButton:hover {
+    border-color: var(--color-error);
+    color: var(--color-error);
+  }
+  
+  /* Content Sections */
+  .contentSection {
+    margin-top: var(--spacing-2xl);
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .dashboardContainer {
+      padding: var(--spacing-md);
+    }
+    
+    .dashboardHeader {
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .farmName {
+      font-size: var(--font-size-2xl);
+    }
+    
+    .dashboardTitle {
+      font-size: var(--font-size-base);
+    }
+    
+    .buttonGrid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    .dashboardCard {
+      padding: var(--spacing-lg);
+    }
+    
+    .cardIcon {
+      font-size: 2rem;
+    }
+    
+    .cardTitle {
+      font-size: var(--font-size-lg);
+    }
+    
+    .bottomActions {
+      flex-direction: column;
+      width: 100%;
+    }
+    
+    .helpButton,
+    .logoutButton {
+      width: 100%;
+    }
+  }

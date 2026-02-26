@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import styles from '/styles/index.module.css';
+
 export default function TodaysHarvest({ client, setIsLoading }) {
   const [orders, setOrders] = useState([]);
 
@@ -14,6 +14,7 @@ export default function TodaysHarvest({ client, setIsLoading }) {
       })
       .catch((error) => console.error('Error:', error));
   }, []);
+
   const itemsOrdered = {};
   orders.map((order) => {
     let itemstring = order.items;
@@ -24,7 +25,7 @@ export default function TodaysHarvest({ client, setIsLoading }) {
       if (product.unitSelected)
         product.cart = parseInt(
           product.cart * product.unitratio ||
-            product.price[0] / product.price[1],
+          product.price[0] / product.price[1],
         );
       if (product.editedCart == 0) return;
       if ([product.name, product.unit[product.unitSelected]] in itemsOrdered)
@@ -51,8 +52,8 @@ export default function TodaysHarvest({ client, setIsLoading }) {
       <tr key={key}>
         <td>{key.substring(0, key.length - val[1].length - 1)}</td>{' '}
         {/* this is because the key is both the product & the unit,
-        so products in different units can be aggregated seperately,
-        this cuts the string so that the unit is cut off, just leaving the product  */}
+         so products in different units can be aggregated seperately,
+         this cuts the string so that the unit is cut off, just leaving the product */}
         <td>
           {val[0].toFixed(0)} {val[1]}
         </td>
@@ -60,9 +61,11 @@ export default function TodaysHarvest({ client, setIsLoading }) {
       </tr>
     );
   });
+
   return (
-    <div className={styles.infoCard}>
-      <table>
+    <div className="card">
+      <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>Today's Harvest</h3>
+      <table className="table">
         <thead>
           <tr>
             <th>Name</th>
@@ -72,7 +75,17 @@ export default function TodaysHarvest({ client, setIsLoading }) {
         </thead>
         <tbody>{rows}</tbody>
       </table>
-      <p style={{ fontWeight: 'bold' }}>Today's Revenue: ${total}</p>
+      <div style={{ 
+        background: 'var(--color-bg-secondary)', 
+        padding: 'var(--spacing-md)', 
+        borderRadius: 'var(--radius-md)',
+        marginTop: 'var(--spacing-md)',
+        textAlign: 'right'
+      }}>
+        <p className="font-bold" style={{ margin: 0 }}>
+          Today's Revenue: <span className="text-primary">${total}</span>
+        </p>
+      </div>
     </div>
   );
 }

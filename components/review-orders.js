@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import emailConfirmed from './emailConfirmed';
-import styles from '/styles/index.module.css';
 import FormattedDate from '../components/formatted-date';
 import OrderTable from '../components/order-table';
 import updateOrderStatus from './update-order-status';
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import InvoiceTemplate from '../pages/invoice-template/[slug]';
+
 export default function ReviewOrders({ client, isLoading, setIsLoading }) {
   const [orders, setOrders] = useState([]);
   const [reload, setReload] = useState(true);
@@ -24,7 +24,7 @@ export default function ReviewOrders({ client, isLoading, setIsLoading }) {
 
   return (
     <>
-      <div className={styles.parent}>
+      <div className="container">
         {!isLoading && orders.length === 0 ? (
           <h1>No New Orders</h1>
         ) : (
@@ -34,7 +34,7 @@ export default function ReviewOrders({ client, isLoading, setIsLoading }) {
           (order) => (
             console.log(order),
             (
-              <div className={styles.infoCard} key={order.id}>
+              <div className="card" key={order.id} style={{ marginBottom: '1.5rem' }}>
                 <h2>
                   {order.name} Order #{order.id}
                 </h2>
@@ -43,9 +43,9 @@ export default function ReviewOrders({ client, isLoading, setIsLoading }) {
                   href={`/invoice-template/${order.id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ textDecoration: 'none', color: 'inherit' }} // Add button styles here
+                  style={{ textDecoration: 'none', color: 'inherit' }}
                 >
-                  <button>Generate Invoice</button>
+                  <button className="btn btn-secondary btn-sm">Generate Invoice</button>
                 </a>
                 <OrderTable
                   client={client}
@@ -59,6 +59,8 @@ export default function ReviewOrders({ client, isLoading, setIsLoading }) {
                 <p>
                   Order status:
                   <select
+                    className="form-select"
+                    style={{ width: 'auto', marginLeft: '0.5rem' }}
                     value={order.status}
                     onChange={(e) =>
                       updateOrderStatus({

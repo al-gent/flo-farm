@@ -1,7 +1,6 @@
 import { renderToString } from 'react-dom/server';
 import WholesaleTable from './wholesale-table';
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/update-buyers.module.css';
 import sendEmail from './send-update-email';
 
 export default function UpdateBuyers({ client }) {
@@ -113,7 +112,12 @@ export default function UpdateBuyers({ client }) {
     if (!email) return;
     else
       return (
-        <div style={{ textAlign: 'left' }} key={index}>
+        <div key={index} style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 'var(--spacing-sm)',
+          marginBottom: 'var(--spacing-sm)'
+        }}>
           <input
             type="checkbox"
             id={email}
@@ -121,9 +125,9 @@ export default function UpdateBuyers({ client }) {
             value={email}
             defaultChecked
           />
-          {email}
+          <label htmlFor={email} style={{ flex: 1 }}>{email}</label>
           <button
-            style={{ scale: '75%' }}
+            className="btn btn-ghost btn-sm"
             onClick={(e) => {
               deleteEmail(e, email);
               setEmails([...emails, email]);
@@ -170,7 +174,6 @@ export default function UpdateBuyers({ client }) {
       try {
         await sendEmail(templateParams);
         setEmailsSent((currentEmailsSent) => [...currentEmailsSent, email]);
-        // I dont understand why this arrow function is needed, but it didn't work without it.
       } catch (error) {
         console.error('Failed to send email to', email, error);
         setPlayByPlay(`Failed to send email to ${email}`);
@@ -179,72 +182,109 @@ export default function UpdateBuyers({ client }) {
     }
     setPlayByPlay('');
   }
+
   return (
-    <div className={styles.updateBuyers}>
+    <div className="card">
       {emailsSent.length > 0 ? (
-        <>
+        <div className="text-center">
           {playByPlay ? (
-            <h3>{playByPlay}</h3>
+            <h3 className="text-primary">{playByPlay}</h3>
           ) : (
-            <h1>Emails successfully sent</h1>
+            <h1 className="text-success">Emails successfully sent</h1>
           )}
-          <ul>
-            {emailsSent.map((email) => (
-              <li>{email}</li>
+          <ul style={{ listStyle: 'none', padding: 0, marginTop: 'var(--spacing-lg)' }}>
+            {emailsSent.map((email, index) => (
+              <li key={index} className="badge badge-success" style={{ margin: '0.25rem' }}>
+                {email}
+              </li>
             ))}
           </ul>
-        </>
+        </div>
       ) : (
         <div>
-          <h2>Update Buyers</h2>
-          <div style={{ textAlign: 'left' }}>
-            <h4>
-              Subject line{' '}
-              <input
-                style={{ width: '100%', textAlign: 'left' }}
-                type="text"
-                value={subject}
-                onChange={(e) => setSubject(e.target.value)}
-              />
-            </h4>
+          <h2 style={{ marginBottom: 'var(--spacing-xl)' }}>Update Buyers</h2>
+          
+          <div className="form-group">
+            <label className="form-label">Subject line</label>
+            <input
+              className="form-input"
+              type="text"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            />
           </div>
-          <div style={{ textAlign: 'left' }}>
-            <h4>
-              Message{' '}
-              <textarea
-                style={{ width: '100%', height: '3rem', textAlign: 'left' }}
-                value={emailText}
-                onChange={(e) => setEmailText(e.target.value)}
-              />
-            </h4>
+          
+          <div className="form-group">
+            <label className="form-label">Message</label>
+            <textarea
+              className="form-textarea"
+              value={emailText}
+              onChange={(e) => setEmailText(e.target.value)}
+              rows="3"
+            />
           </div>
-          <WholesaleTable products={products} farmName={farm.farmname} />
-          <h3>Which buyers?</h3>
+          
+          <div style={{ 
+            background: 'var(--color-bg-secondary)', 
+            padding: 'var(--spacing-lg)', 
+            borderRadius: 'var(--radius-md)',
+            marginBottom: 'var(--spacing-xl)'
+          }}>
+            <h4 style={{ marginBottom: 'var(--spacing-md)' }}>Preview:</h4>
+            <WholesaleTable products={products} farmName={farm.farmname} />
+          </div>
+          
+          <h3 style={{ marginBottom: 'var(--spacing-lg)' }}>Which buyers?</h3>
+          
           <form onSubmit={(e) => handleEmailSending(e)}>
-            {emails.map((email, index) => emailCheckBox(email, index))}
-            <div style={{ textAlign: 'left' }}>
-              <input
-                type="checkbox"
-                value={enterEmail}
-                name="email"
-                checked={enterEmail !== ''}
-              />
-              <input
-                type="text"
-                value={enterEmail}
-                onChange={(e) => setEnterEmail(e.target.value)}
-              />
-              <button
-                onClick={(e) => {
-                  setEmails([...emails, enterEmail]);
-                  addEmail(e, enterEmail);
-                  setEnterEmail('');
-                }}
-              >
-                Add Email
-              </button>
+            <div style={{ 
+              background: 'var(--color-bg-secondary)', 
+              padding: 'var(--spacing-lg)', 
+              borderRadius: 'var(--radius-md)',
+              marginBottom: 'var(--spacing-lg)'
+            }}>
+              {emails.map((email, index) => emailCheckBox(email, index))}
+              
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 'var(--spacing-sm)',
+                marginTop: 'var(--spacing-md)',
+                paddingTop: 'var(--spacing-md)',
+                borderTop: '1px solid var(--color-border-light)'
+              }}>
+                <input
+                  type="checkbox"
+                  value={enterEmail}
+                  name="email"
+                  checked={enterEmail !== ''}
+                  readOnly
+                />
+                <input
+                  className="form-input"
+                  type="email"
+                  value={enterEmail}
+                  onChange={(e) => setEnterEmail(e.target.value)}
+                  placeholder="Add new email"
+                  style={{ flex: 1 }}
+                />
+                <button
+                  className="btn btn-secondary btn-sm"
+                  onClick={(e) => {
+                    setEmails([...emails, enterEmail]);
+                    addEmail(e, enterEmail);
+                    setEnterEmail('');
+                  }}
+                  disabled={!enterEmail}
+                >
+                  Add Email
+                </button>
+              </div>
             </div>
-            <button type="submit">Send Update</button>
+            
+            <button type="submit" className="btn btn-primary btn-lg" style={{ width: '100%' }}>
+              Send Update to Selected Buyers
+            </button>
           </form>
         </div>
       )}

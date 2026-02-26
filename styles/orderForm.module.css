@@ -1,128 +1,185 @@
 /* Container */
 .container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: var(--spacing-xl);
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Product Table Wrapper */
+.tableWrapper {
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: var(--spacing-2xl);
+}
+
+/* Quantity Input Container */
+.quantityInput {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.quantityInput input {
+  width: 60px;
+  padding: var(--spacing-sm);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: var(--font-size-base);
+}
+
+.quantityInput input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.addButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: var(--font-weight-semibold);
+  transition: all var(--transition-fast);
+}
+
+.addButton:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Error message */
+.errorMessage {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  font-style: italic;
+}
+
+/* Cart Section */
+.cartSection {
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-xl);
+  margin-top: var(--spacing-2xl);
+}
+
+.cartTitle {
+  text-align: center;
+  font-size: var(--font-size-2xl);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.emptyCart {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xl);
+  padding: var(--spacing-3xl);
+}
+
+/* Order Success */
+.orderSuccess {
+  text-align: center;
+  padding: var(--spacing-3xl);
+}
+
+.orderSuccess h1 {
+  color: var(--color-success);
+  margin-bottom: var(--spacing-xl);
+}
+
+/* Loading State */
+.loadingText {
+  text-align: center;
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+  margin-top: var(--spacing-lg);
+  font-style: italic;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-sm);
   }
   
-  /* Header */
   .header {
-    text-align: center;
-    margin-bottom: var(--spacing-2xl);
+    margin-bottom: var(--spacing-lg);
   }
   
   .title {
-    font-size: var(--font-size-4xl);
-    color: var(--color-primary);
-    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-md);
   }
   
-  /* Product Table Wrapper */
   .tableWrapper {
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
-    margin-bottom: var(--spacing-2xl);
+    margin: 0 calc(-1 * var(--spacing-sm));
+    box-shadow: none;
+    border-radius: 0;
   }
   
-  /* Quantity Input Container */
+  /* Make quantity input more compact */
   .quantityInput {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
+    gap: 4px;
   }
   
   .quantityInput input {
-    width: 60px;
-    padding: var(--spacing-sm);
-    border: 2px solid var(--color-border-light);
-    border-radius: var(--radius-md);
-    text-align: center;
-    font-size: var(--font-size-base);
-  }
-  
-  .quantityInput input:focus {
-    outline: none;
-    border-color: var(--color-primary);
+    width: 50px;
+    padding: 6px;
+    font-size: 16px; /* Prevents zoom on iOS */
   }
   
   .addButton {
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--color-primary);
-    color: white;
-    border: none;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    font-weight: var(--font-weight-semibold);
-    transition: all var(--transition-fast);
-  }
-  
-  .addButton:hover {
-    background: var(--color-primary-dark);
-    transform: translateY(-1px);
-  }
-  
-  /* Error message */
-  .errorMessage {
-    color: var(--color-error);
+    padding: 6px 12px;
     font-size: var(--font-size-sm);
-    font-style: italic;
   }
   
-  /* Cart Section */
+  /* Reduce cart section padding */
   .cartSection {
-    background: var(--color-bg-secondary);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-xl);
-    margin-top: var(--spacing-2xl);
+    padding: var(--spacing-md);
+    margin-top: var(--spacing-lg);
   }
   
   .cartTitle {
-    text-align: center;
-    font-size: var(--font-size-2xl);
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
   }
   
   .emptyCart {
-    text-align: center;
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-xl);
-    padding: var(--spacing-3xl);
-  }
-  
-  /* Order Success */
-  .orderSuccess {
-    text-align: center;
-    padding: var(--spacing-3xl);
-  }
-  
-  .orderSuccess h1 {
-    color: var(--color-success);
-    margin-bottom: var(--spacing-xl);
-  }
-  
-  /* Loading State */
-  .loadingText {
-    text-align: center;
-    color: var(--color-primary);
     font-size: var(--font-size-lg);
-    margin-top: var(--spacing-lg);
-    font-style: italic;
+    padding: var(--spacing-xl);
   }
   
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    .container {
-      padding: var(--spacing-md);
+  /* Stack table columns on very small screens */
+  @media (max-width: 480px) {
+    .tableWrapper table {
+      font-size: var(--font-size-xs);
     }
     
-    .tableWrapper {
-      margin: 0 calc(-1 * var(--spacing-md));
+    .tableWrapper th,
+    .tableWrapper td {
+      padding: 6px 4px;
     }
     
-    .quantityInput input {
-      width: 50px;
+    /* Hide less important columns if needed */
+    .tableWrapper th:nth-child(4),
+    .tableWrapper td:nth-child(4) {
+      display: none;
     }
   }
+}

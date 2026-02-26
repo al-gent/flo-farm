@@ -9,6 +9,13 @@ export default function UnitDropdown({
     return (
       <td>
         <select
+          className="form-select"
+          style={{ 
+            width: 'auto',
+            maxWidth: '150px',
+            padding: '0.25rem 0.5rem',
+            fontSize: '0.875rem'
+          }}
           onChange={(e) => {
             setInvalidQuant(false);
             setUnitSelected(e.target.selectedIndex);
@@ -21,7 +28,6 @@ export default function UnitDropdown({
               : Math.round(product.quantity);
             return (
               <option key={unit + index} value={value}>
-                {' '}
                 {value} {unit}
               </option>
             );
@@ -31,7 +37,7 @@ export default function UnitDropdown({
     );
   } else {
     return (
-      <td style={{ padding: '0.3rem' }}>
+      <td>
         {product.quantity} {product.unit}
       </td>
     );

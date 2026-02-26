@@ -82,8 +82,8 @@ export default function Homepage() {
       {/* Demo Section - Collapsible */}
       {showDemo && (
         <>
-          <div className={styles.demoSection}>
-            <div className={styles.orderFormComments}>
+          <div className={`${styles.spreadCards} demo-page`}>
+              <div className={styles.orderFormComments}>
               <h2>Customer Ordering Experience</h2>
               <p>This is what your wholesale buyers will see. Try making an order!</p>
               <ul>

@@ -424,15 +424,103 @@ a:hover {
     font-size: 14px;
   }
   
+  /* Reduce container padding on mobile */
   .container {
-    padding: 0 var(--spacing-md);
+    padding: 0 var(--spacing-sm);
   }
   
+  .container-sm {
+    padding: 0 var(--spacing-sm);
+  }
+  
+  /* Reduce card padding on mobile */
+  .card {
+    padding: var(--spacing-md);
+  }
+  
+  /* Reduce section spacing */
+  .section {
+    padding: var(--spacing-xl) 0;
+  }
+  
+  /* Make forms more compact */
+  .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Smaller headings */
   h1 {
-    font-size: var(--font-size-4xl);
+    font-size: var(--font-size-3xl);
   }
   
   h2 {
     font-size: var(--font-size-2xl);
+  }
+  
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+  
+  /* Smaller buttons on mobile */
+  .btn {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-sm);
+  }
+  
+  .btn-sm {
+    padding: var(--spacing-xs) var(--spacing-md);
+  }
+  
+  /* Table improvements for mobile */
+  .table {
+    font-size: var(--font-size-sm);
+  }
+  
+  .table th,
+  .table td {
+    padding: var(--spacing-sm);
+  }
+  
+  /* Allow horizontal scroll for tables */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 calc(-1 * var(--spacing-sm));
+    padding: 0 var(--spacing-sm);
+  }
+}
+
+/* Demo page specific overrides */
+@media (max-width: 768px) {
+  .demo-page .container,
+  .demo-page .container-sm {
+    padding: 0;
+  }
+  
+  .demo-page .card {
+    padding: var(--spacing-sm);
+  }
+  
+  .demo-page .form-group {
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .demo-page h1 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .demo-page h2 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .demo-page h3 {
+    font-size: var(--font-size-lg);
   }
 }

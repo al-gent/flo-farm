@@ -14,14 +14,14 @@ export default function WholesaleTable({ products }) {
           <td>
             {product.quantity} {product.unit[0]}
           </td>
-          <td>{'$' + product.price[0] + '/' + perUnit}</td>
+          <td>${product.price[0]}/{perUnit}</td>
         </tr>
       );
     });
-
+    
   return (
-    <div>
-      <table>
+    <div style={{ overflow: 'auto' }}>
+      <table className="table">
         <thead>
           <tr>
             <th>Name</th>
