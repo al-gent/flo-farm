@@ -9,6 +9,7 @@ import {
   text,
   timestamp,
   index,
+  type AnyPgColumn 
 } from "drizzle-orm/pg-core";
 
 // ─── Enums ────────────────────────────────────────────────────────────────────
@@ -62,8 +63,8 @@ export const products = pgTable("products", {
   // quantity is in terms of the primary unit
   quantity: numeric("quantity", { precision: 10, scale: 2 }).notNull().default("0"),
   // set after product_units rows are created
-  primaryUnitId: uuid("primary_unit_id").references(() => productUnits.id),
-  active: boolean("active").notNull().default(true),
+  primaryUnitId: uuid("primary_unit_id").references((): AnyPgColumn => productUnits.id),
+    active: boolean("active").notNull().default(true),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
