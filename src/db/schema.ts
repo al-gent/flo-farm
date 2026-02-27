@@ -160,3 +160,8 @@ export const farmNotes = pgTable("farm_notes", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   // query latest with ORDER BY created_at DESC LIMIT 1 for storefront display
 });
+
+// ─── Derived TypeScript types ─────────────────────────────────────────────────
+
+export type OrderStatus = (typeof orderStatusEnum.enumValues)[number];
+export type UserRole = (typeof userRoleEnum.enumValues)[number];

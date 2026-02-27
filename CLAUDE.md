@@ -39,23 +39,56 @@ Copy `.env.local.example` → `.env.local` and fill in:
 
 ```
 src/
-  app/                        # Next.js App Router
-    api/auth/[...nextauth]/   # Auth.js catch-all route handler
-    layout.tsx                # Root layout (Geist fonts, global CSS)
-    page.tsx                  # Home route
-    globals.css               # Tailwind + shadcn CSS variables
+  app/
+    page.tsx                        # Root: redirects to /dashboard, /orders, or /login by role
+    login/page.tsx                  # Login form (useActionState + server action)
+    signup/page.tsx                 # Signup with farmer/buyer role toggle (client component)
+    [farmcode]/page.tsx             # Public storefront — no auth required
+    orders/page.tsx                 # Buyer order history (buyer role required)
+    dashboard/
+      layout.tsx                    # Auth guard: farmer only
+      page.tsx                      # Grid of large nav tiles
+      orders/page.tsx               # Pending/confirmed orders
+      products/page.tsx             # Product list + add/edit form
+      harvest/page.tsx              # Today's harvest (aggregated active orders)
+      completed/page.tsx            # Completed/cancelled orders
+      notes/page.tsx                # Farm notes
+      buyers/page.tsx               # Buyer list + send email notification
+    api/auth/[...nextauth]/route.ts # Auth.js catch-all
+    actions/auth.ts                 # Server actions: loginAction, signupAction, logoutAction
+  components/
+    storefront/StorefrontClient.tsx # Cart state, unit select, checkout form (client)
+    dashboard/
+      OrderList.tsx                 # Expandable order cards with status actions (client)
+      ProductManager.tsx            # Product list + unit/price builder form (client)
+      NotesManager.tsx              # Post + list farm notes (client)
+    ui/                             # shadcn/ui components
   db/
     schema.ts                 # Single source of truth for all DB tables
     index.ts                  # Drizzle client (neon-http, exports `db`)
   lib/
+    mock-data.ts              # Mock data matching schema shapes exactly (replace with DB in next pass)
     utils.ts                  # shadcn cn() helper
   types/
     next-auth.d.ts            # Augments Session/JWT with `id` and `role`
   auth.ts                     # NextAuth config — credentials provider, JWT callbacks
-  middleware.ts               # Route protection — redirects unauthenticated users
+  middleware.ts               # Protects /dashboard/* and /orders/* — everything else is public
 drizzle/                      # Generated SQL migrations (committed to git)
 drizzle.config.ts             # Drizzle Kit config
 ```
+
+## Mock data
+
+All pages use `src/lib/mock-data.ts`. Numeric DB fields (prices, quantities, ratios) are strings to match Neon's `numeric` return type. When wiring DB queries, replace the mock imports in each page's server component — the mock types match the schema shapes exactly.
+
+## Key UI patterns
+
+- **Server components** for all pages (session check with `await auth()`, data fetching)
+- **Client components** for anything with local state: `StorefrontClient`, `OrderList`, `ProductManager`, `NotesManager`
+- **Server actions** in `src/app/actions/auth.ts` for login/logout/signup
+- Dashboard tiles use `min-h-36 rounded-2xl bg-green-600` for the big-button grid
+- Status badge colors: pending=amber, confirmed=blue, edited=purple, completed=green, cancelled=gray
+- `parseFloat()` when doing arithmetic on any numeric field from the schema
 
 ## Database schema overview
 
